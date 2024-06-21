@@ -91,7 +91,7 @@ https://zahageek-back.onrender.com/
 ]
 ```
 
-### Get Level /api/glish/levels/<int:level_id>/modules method: GET
+### Get Modules by level ID /api/glish/levels/<int:level_id>/modules method: GET
 * Need authorizations Token xxxxxxxxxx
 #### Response
 ```json
@@ -107,7 +107,7 @@ https://zahageek-back.onrender.com/
 ]
 ```
 
-### Get Level /api/glish/levels/modules/<int:module_id>/module_elements method: GET
+### Get Modules elements by module ID /api/glish/levels/modules/<int:module_id>/module_elements method: GET
 * Need authorizations Token xxxxxxxxxx
 #### Response
 ```json
