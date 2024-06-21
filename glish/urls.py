@@ -4,6 +4,6 @@ from glish.views import ListLevelApiView, ListModuleApiView, ListModuleElementAp
 
 urlpatterns = [
     path('levels', ListLevelApiView.as_view(), name='levels'),
-    path('modules/<int:level>', ListModuleApiView.as_view(), name='modules'),
-    path('module_elements/<int:module>', ListModuleElementApiView.as_view(), name='module_elements'),
+    path('levels/<int:level>/modules', ListModuleApiView.as_view(), name='modules'),
+    path('levels/modules/<int:module>/module_elements', ListModuleElementApiView.as_view(), name='module_elements'),
 ]

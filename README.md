@@ -74,3 +74,52 @@ https://zahageek-back.onrender.com/
     "profile_picture": "http://localhost:8000/images/Profile_avatar_placeholder_large.png"
 }
 ```
+
+### Get Level /api/glish/levels method: GET
+* Need authorizations Token xxxxxxxxxx
+#### Response
+```json
+[
+    {
+        "id": 1,
+        "order": 1,
+        "name": "Level 1",
+        "desc": "Level 1 desc",
+        "min_point": 0
+    },
+    ...
+]
+```
+
+### Get Level /api/glish/levels/<int:level_id>/modules method: GET
+* Need authorizations Token xxxxxxxxxx
+#### Response
+```json
+[
+    {
+        "id": 1,
+        "order": 1,
+        "name": "Introduction to English",
+        "desc": "desc",
+        "level": 1
+    },
+    ...
+]
+```
+
+### Get Level /api/glish/levels/modules/<int:module_id>/module_elements method: GET
+* Need authorizations Token xxxxxxxxxx
+#### Response
+```json
+[
+    {
+        "id": 1,
+        "order": 1,
+        "name": "Alphabet and basic phonetics",
+        "desc": "desc",
+        "module": 1
+    }
+    ...
+]
+```
+
