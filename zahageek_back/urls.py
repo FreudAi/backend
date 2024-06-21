@@ -33,6 +33,7 @@ def create_super_user(request):
 urlpatterns = [
     path('create-super-user', create_super_user, name='create-super-user'),
     path('admin/', admin.site.urls),
-    path('accounts/', include('rest_framework.urls', namespace='rest_framework')),
+    #path('accounts/', include('rest_framework.urls', namespace='rest_framework')),
     path('api/auth/', include('authentication.urls')),
+    path('api/glish/', include('glish.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
