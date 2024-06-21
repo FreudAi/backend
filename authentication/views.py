@@ -42,9 +42,9 @@ class RegisterAPIView(generics.GenericAPIView):
         
         if serializer.is_valid():
             serializer.save()
-            return response.Response(serializer.data, status=status.HTTP_201_CREATED)
+            return response.Response({"status": True, "user": serializer.data}, status=status.HTTP_201_CREATED)
         
-        return response.Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return response.Response({"status": False, "message": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
     
 
 class LoginAPIView(generics.GenericAPIView):
@@ -59,8 +59,8 @@ class LoginAPIView(generics.GenericAPIView):
         user = authenticate(username=email, password=password)
         if user:
             serializer = self.serializer_class(user)
-            return response.Response(serializer.data, status=status.HTTP_200_OK)
+            return response.Response({'status': True, 'user': serializer.data}, status=status.HTTP_200_OK)
         
-        return response.Response({'message': 'Invalid Credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+        return response.Response({'status': False, 'message': 'Invalid Credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
 
