@@ -21,13 +21,8 @@ from django.conf.urls.static import static
 from django.http import HttpResponse
 
 def create_super_user(request):
-    import os
     from authentication.models import User
-
-    email = os.environ.get('DJANGO_SUPERUSER_EMAIL')
-    password = os.environ.get('DJANGO_SUPERUSER_PASSWORD')
-
-    User.objects.create_superuser(email=email, password=password, is_staff=True, is_superuser=True)
+    User.objects.create_superuser(email="admin@admin.com", password="admin123##", is_staff=True, is_superuser=True)
     return HttpResponse("Admin created successfully!")
 
 urlpatterns = [
