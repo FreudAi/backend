@@ -70,16 +70,7 @@ def get_lessons(request):
 
     # Convert the content of the <body> tag to a string
     body_string = str(body_content)
-
-    # Create a dictionary to hold the JSON response
-    response = {
-        "body_content": body_string
-    }
-
-    # Convert the dictionary to a JSON string
-    json_response = json.dumps(response, indent=4)
         
-    
-    
-    return JsonResponse({'status': True,  "response": json_response}, status=status.HTTP_200_OK)
+
+    return JsonResponse({'status': True, "body_content": body_string}, status=status.HTTP_200_OK)
     
