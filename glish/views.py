@@ -55,12 +55,31 @@ def get_lessons(request):
     if not prompt:
         return JsonResponse({'status': False, 'detail': 'Prompt parameter is required'}, status=status.HTTP_400_BAD_REQUEST)
     
-    response = gemini.generate("I am beginner in english, talk me about '"+ prompt +"', give the answer like : Title, sous tile, explication, example. and give it in json format.")
-    
-    text = response.replace('```json', '').replace('```', '')
-    
-    json_formatted = json.loads(text)
+    response = gemini.generate("I am beginner in english, talk me about '"+ prompt +"', give the answer like : Title, sous tile, explication, example. and give it in HTML5 format.")
     
     
-    return JsonResponse({'status': True,  "response": json_formatted}, status=status.HTTP_200_OK)
+    html_response = response.replace('```html', '').replace('```', '')
+    
+    from bs4 import BeautifulSoup
+    
+    # Parse the HTML content using BeautifulSoup
+    soup = BeautifulSoup(html_response, 'lxml')
+
+    # Extract the content of the <body> tag
+    body_content = soup.body
+
+    # Convert the content of the <body> tag to a string
+    body_string = str(body_content)
+
+    # Create a dictionary to hold the JSON response
+    response = {
+        "body_content": body_string
+    }
+
+    # Convert the dictionary to a JSON string
+    json_response = json.dumps(response, indent=4)
+        
+    
+    
+    return JsonResponse({'status': True,  "response": json_response}, status=status.HTTP_200_OK)
     
