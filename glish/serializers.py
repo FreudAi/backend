@@ -17,6 +17,8 @@ class ModuleSerializer(serializers.ModelSerializer):
 
 class ModuleElementSerializer(serializers.ModelSerializer):
     
+    module = ModuleSerializer(read_only=True)
+    
     class Meta:
         model=ModuleElement
         fields = '__all__'

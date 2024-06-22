@@ -27,5 +27,5 @@ class ListModuleElementApiView(ListAPIView):
     lookup_field = 'module'
     
     def get_queryset(self):
-        return ModuleElement.objects.filter(module=self.kwargs.get('module'))
+        return ModuleElement.objects.filter(module=self.kwargs.get('module')).select_related('module') 
 
