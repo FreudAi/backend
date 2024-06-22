@@ -1,4 +1,4 @@
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView, RetrieveAPIView
 from glish.serializers import LevelSerializer, ModuleSerializer, ModuleElementSerializer
 from rest_framework.permissions import IsAuthenticated
 from glish.models import Level, Module, ModuleElement
@@ -28,4 +28,13 @@ class ListModuleElementApiView(ListAPIView):
     
     def get_queryset(self):
         return ModuleElement.objects.filter(module=self.kwargs.get('module')).select_related('module') 
+    
+    
+class ModuleElementAPIView(RetrieveAPIView):
+    serializer_class = ModuleElementSerializer
+    permission_classes = (IsAuthenticated,)
+    lookup_field = 'id'
+    
+    def get_queryset(self):
+        return ModuleElement.objects.all()
 
