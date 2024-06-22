@@ -2,6 +2,15 @@ from rest_framework.generics import ListAPIView, RetrieveAPIView
 from glish.serializers import LevelSerializer, ModuleSerializer, ModuleElementSerializer
 from rest_framework.permissions import IsAuthenticated
 from glish.models import Level, Module, ModuleElement
+from django.http import JsonResponse
+from rest_framework import status
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from utils.gemini import GeminiApi
+import json
+
+
+gemini = GeminiApi()
 
 class ListLevelApiView(ListAPIView):
     serializer_class = LevelSerializer
@@ -37,4 +46,21 @@ class ModuleElementAPIView(RetrieveAPIView):
     
     def get_queryset(self):
         return ModuleElement.objects.all()
-
+    
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])  
+def get_lessons(request):
+    
+    prompt = request.GET.get('prompt')
+    if not prompt:
+        return JsonResponse({'status': False, 'detail': 'Prompt parameter is required'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    response = gemini.generate("I am beginner in english, talk me about '"+ prompt +"', give the answer like : Title, sous tile, explication, example. and give it in json format.")
+    
+    text = response.replace('```json', '').replace('```', '')
+    
+    json_formatted = json.loads(text)
+    
+    
+    return JsonResponse({'status': True,  "response": json_formatted}, status=status.HTTP_200_OK)
+    
