@@ -73,4 +73,33 @@ def get_lessons(request):
         
 
     return JsonResponse({'status': True, "body_content": body_string}, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])  
+def ask_questions(request):
+    
+    prompt = request.GET.get('prompt')
+    theme = request.GET.get('theme')
+    
+    if not prompt:
+        return JsonResponse({'status': False, 'detail': 'Prompt parameter is required'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    response = gemini.generate("try to reply to the following questions :  '"+ prompt +"' and relate it to the topics :  '"+theme+"'. Give it in HTML5 format.")
+    
+    html_response = response.replace('```html', '').replace('```', '')
+    
+    from bs4 import BeautifulSoup
+    
+    # Parse the HTML content using BeautifulSoup
+    soup = BeautifulSoup(html_response, 'lxml')
+
+    # Extract the content of the <body> tag
+    body_content = soup.body
+
+    # Convert the content of the <body> tag to a string
+    body_string = str(body_content)
+        
+
+    return JsonResponse({'status': True, "body_content": body_string}, status=status.HTTP_200_OK)
     
