@@ -28,7 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    'zahageek-back.onrender.com'
+    '10.0.2.2'
 ]
 
 
@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'authentication',
-    'glish'
+    'freud'
 ]
 
 MIDDLEWARE = [

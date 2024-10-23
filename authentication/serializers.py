@@ -7,8 +7,7 @@ class RegisterSerializer(serializers.ModelSerializer):
     
     class Meta:
         model=User
-        fields = ('id', 'first_name', 'last_name', 'email', 'password', 'profile_picture')
-        read_only_fields = ['profile_picture']
+        fields = ('id', 'first_name', 'last_name', 'email', 'gender', 'age', 'weight', 'password')
         
     def create(self, validated_data):
         return User.objects.create_user(**validated_data)
@@ -23,10 +22,6 @@ class LoginSerializer(serializers.ModelSerializer):
         
 class ProfileSerializer(serializers.ModelSerializer):
     password = serializers.CharField(min_length=8, write_only=True)
-    profile_picture = serializers.ImageField()
     class Meta:
         model=User
-        fields = ('id', 'first_name', 'last_name', 'email', 'password', 'profile_picture')
-        extra_kwargs = {
-            'profile_picture': {'required': False}
-        }
+        fields = ('id', 'first_name', 'last_name', 'email', 'gender', 'age', 'weight', 'password')

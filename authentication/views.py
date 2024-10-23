@@ -3,6 +3,8 @@ from authentication.serializers import RegisterSerializer, LoginSerializer, Prof
 from rest_framework import response, status, permissions
 from django.contrib.auth import authenticate
 from django.http import QueryDict
+from django.views.decorators.csrf import csrf_exempt
+
 
 
 class ProfileView(generics.RetrieveUpdateAPIView):
@@ -52,6 +54,7 @@ class LoginAPIView(generics.GenericAPIView):
     serializer_class = LoginSerializer
     authentication_classes = []
     
+    @csrf_exempt
     def post(self, request):
         email = request.data.get('email', None)
         password = request.data.get('password', None)

@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class GlishConfig(AppConfig):
+class FreudConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'glish'
+    name = 'freud'

@@ -52,6 +52,9 @@ class User(AbstractBaseUser, PermissionsMixin, TrackingModel):
     first_name = models.CharField(_("first name"), max_length=255, blank=True)
     last_name = models.CharField(_("last name"), max_length=255, blank=True)
     email = models.EmailField(_("email address"), blank=False, unique=True)
+    gender = models.CharField(_("gender"), max_length=10, blank=True, null=True)
+    age = models.IntegerField(_("age"), blank=True, null=True)
+    weight = models.FloatField(_("Weight"), blank=False, null=True)
     is_staff = models.BooleanField(
         _("staff status"),
         default=False,
@@ -66,12 +69,6 @@ class User(AbstractBaseUser, PermissionsMixin, TrackingModel):
         ),
     )
     date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
-    
-    level = models.CharField(max_length=10, default="1.1.1")
-    
-    point = models.IntegerField(default=0)
-    
-    profile_picture = models.ImageField(upload_to=upload_to, default="images/Profile_avatar_placeholder_large.png", blank=True, null=True)
 
     EMAIL_FIELD = "email"
     USERNAME_FIELD = "email"
